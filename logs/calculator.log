@@ -1,0 +1,22 @@
+2026-10-03 11:44:19,903 - INFO - Logging initialized at: /mnt/d/NJIT/IS601/git/projects/assignment5/logs/calculator.log
+2026-10-03 11:44:19,911 - INFO - No history file found - starting with empty history
+2026-10-03 11:44:19,911 - INFO - Calculator initialized with configuration
+2026-10-03 11:44:19,912 - INFO - Added observer: LoggingObserver
+2026-10-03 11:44:19,912 - INFO - Added observer: AutoSaveObserver
+2026-10-03 11:44:55,659 - INFO - Set operation: Addition
+2026-10-03 11:44:55,660 - ERROR - Validation error: Invalid number format: 1 1
+2026-10-03 11:45:00,590 - INFO - Set operation: Addition
+2026-10-03 11:45:00,591 - INFO - Calculation performed: Addition (1, 1) = 2
+2026-10-03 11:45:00,632 - INFO - History saved successfully to /mnt/d/NJIT/IS601/git/projects/assignment5/history/calculator_history.csv
+2026-10-03 11:45:00,633 - INFO - History auto-saved
+2026-10-03 11:45:36,837 - INFO - Set operation: Subtraction
+2026-10-03 11:45:36,838 - INFO - Calculation performed: Subtraction (1E+2, 299) = -199
+2026-10-03 11:45:36,857 - INFO - History saved successfully to /mnt/d/NJIT/IS601/git/projects/assignment5/history/calculator_history.csv
+2026-10-03 11:45:36,857 - INFO - History auto-saved
+2026-10-03 11:45:47,845 - INFO - History saved successfully to /mnt/d/NJIT/IS601/git/projects/assignment5/history/calculator_history.csv
+2026-10-03 11:45:58,524 - INFO - Logging initialized at: /mnt/d/NJIT/IS601/git/projects/assignment5/logs/calculator.log
+2026-10-03 11:45:58,551 - INFO - Loaded 2 calculations from history
+2026-10-03 11:45:58,551 - INFO - Calculator initialized with configuration
+2026-10-03 11:45:58,552 - INFO - Added observer: LoggingObserver
+2026-10-03 11:45:58,552 - INFO - Added observer: AutoSaveObserver
+2026-10-03 11:46:39,253 - INFO - History saved successfully to /mnt/d/NJIT/IS601/git/projects/assignment5/history/calculator_history.csv
