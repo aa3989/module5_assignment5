@@ -1,42 +1,23 @@
 import pytest
 from app.exceptions import CalculatorError, ValidationError, OperationError, ConfigurationError
 
-# Test cases for CalculatorError hierarchy
 
-def test_calculator_error_is_base_exception():
-    with pytest.raises(CalculatorError) as exc_info:
-        raise CalculatorError("Base calculator error occurred")
-    assert str(exc_info.value) == "Base calculator error occurred"
-
-def test_validation_error_is_calculator_error():
-    with pytest.raises(CalculatorError) as exc_info:
-        raise ValidationError("Validation failed")
+@pytest.mark.parametrize(
+    "error_type,caught_type,message",
+    [
+        pytest.param(CalculatorError, CalculatorError, 'Base calculator error occurred', id='calculator_error_is_base_exception'),
+        pytest.param(ValidationError, CalculatorError, 'Validation failed', id='validation_error_is_calculator_error'),
+        pytest.param(ValidationError, ValidationError, 'Validation error', id='validation_error_specific_exception'),
+        pytest.param(OperationError, CalculatorError, 'Operation failed', id='operation_error_is_calculator_error'),
+        pytest.param(OperationError, OperationError, 'Specific operation error', id='operation_error_specific_exception'),
+        pytest.param(ConfigurationError, CalculatorError, 'Configuration invalid', id='configuration_error_is_calculator_error'),
+        pytest.param(ConfigurationError, ConfigurationError, 'Specific configuration error', id='configuration_error_specific_exception'),
+    ],
+)
+def test_exception_hierarchy_and_message(error_type, caught_type, message):
+    """Exceptions can be caught by their declared type and preserve messages."""
+    with pytest.raises(caught_type) as exc_info:
+        raise error_type(message)
     assert isinstance(exc_info.value, CalculatorError)
-    assert str(exc_info.value) == "Validation failed"
-
-def test_validation_error_specific_exception():
-    with pytest.raises(ValidationError) as exc_info:
-        raise ValidationError("Validation error")
-    assert str(exc_info.value) == "Validation error"
-
-def test_operation_error_is_calculator_error():
-    with pytest.raises(CalculatorError) as exc_info:
-        raise OperationError("Operation failed")
-    assert isinstance(exc_info.value, CalculatorError)
-    assert str(exc_info.value) == "Operation failed"
-
-def test_operation_error_specific_exception():
-    with pytest.raises(OperationError) as exc_info:
-        raise OperationError("Specific operation error")
-    assert str(exc_info.value) == "Specific operation error"
-
-def test_configuration_error_is_calculator_error():
-    with pytest.raises(CalculatorError) as exc_info:
-        raise ConfigurationError("Configuration invalid")
-    assert isinstance(exc_info.value, CalculatorError)
-    assert str(exc_info.value) == "Configuration invalid"
-
-def test_configuration_error_specific_exception():
-    with pytest.raises(ConfigurationError) as exc_info:
-        raise ConfigurationError("Specific configuration error")
-    assert str(exc_info.value) == "Specific configuration error"
+    assert type(exc_info.value) is error_type
+    assert str(exc_info.value) == message

@@ -29,14 +29,18 @@ def test_logging_observer_no_calculation():
 
 # Test cases for AutoSaveObserver
 
-def test_autosave_observer_triggers_save():
+@pytest.mark.parametrize("auto_save,expected_calls", [(True, 1), (False, 0)], ids=["enabled", "disabled"])
+def test_autosave_observer_triggers_save(auto_save, expected_calls):
+    """Autosave follows the configured switch."""
     calculator_mock = Mock(spec=Calculator)
     calculator_mock.config = Mock(spec=CalculatorConfig)
-    calculator_mock.config.auto_save = True
+    calculator_mock.config.auto_save = auto_save
     observer = AutoSaveObserver(calculator_mock)
-    
     observer.update(calculation_mock)
-    calculator_mock.save_history.assert_called_once()
+    assert calculator_mock.save_history.call_count == expected_calls
+    if auto_save:
+        calculator_mock.save_history.assert_called_once_with()
+
 
 @patch('logging.info')
 def test_autosave_observer_logs_autosave(logging_info_mock):
@@ -47,15 +51,6 @@ def test_autosave_observer_logs_autosave(logging_info_mock):
     
     observer.update(calculation_mock)
     logging_info_mock.assert_called_once_with("History auto-saved")
-
-def test_autosave_observer_does_not_trigger_save_when_disabled():
-    calculator_mock = Mock(spec=Calculator)
-    calculator_mock.config = Mock(spec=CalculatorConfig)
-    calculator_mock.config.auto_save = False
-    observer = AutoSaveObserver(calculator_mock)
-    
-    observer.update(calculation_mock)
-    calculator_mock.save_history.assert_not_called()
 
 # Additional negative test cases for AutoSaveObserver
 
